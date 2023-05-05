@@ -1,7 +1,8 @@
 -- Stored procedures:
 
 -- "criar o jogador, dados os seus email, região e username":
---using this instead of DEFAULT (in the id) to avoid problems, because inserting with an explicit ID doesn't increase the
+--using this instead of DEFAULT (in the id) to avoid problems, because inserting with an explicit ID doesn't increase the JOGADOR_id_seq
+-- in c) I inserted an ALTER SEQUENCE, so the loops and checks really isn't needed anymore but I will keep it because its good to know how it can be done
 CREATE OR REPLACE PROCEDURE criarJogador(username TEXT, email TEXT, regiao regiao_enum) language plpgsql as $$
     declare
         next_id INT;

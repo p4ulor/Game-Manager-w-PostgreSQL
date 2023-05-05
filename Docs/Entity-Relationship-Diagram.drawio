@@ -1,6 +1,6 @@
-<mxfile host="app.diagrams.net" modified="2023-05-01T23:15:49.294Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/112.0.0.0 Safari/537.36" etag="-4svZ76-W7IeHpmduABr" version="21.2.3" type="device">
+<mxfile host="app.diagrams.net" modified="2023-05-04T19:09:59.507Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/113.0.0.0 Safari/537.36" etag="M_FPr9MwsvmxCH0Eoc2q" version="21.2.3" type="device">
   <diagram name="Page-1" id="gDqPEwOeBJ4B4ghDHGTp">
-    <mxGraphModel dx="574" dy="1491" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+    <mxGraphModel dx="880" dy="1663" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -516,9 +516,6 @@
         <mxCell id="Y0LaDZVLSumVNecySCVG-36" value="AMIGOS" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
           <mxGeometry x="259.88" y="-60" width="108.24" height="30" as="geometry" />
         </mxCell>
-        <mxCell id="Y0LaDZVLSumVNecySCVG-37" value="&lt;font style=&quot;font-size: 20px;&quot;&gt;In a data model, weak entities are&amp;nbsp;&lt;span style=&quot;color: rgb(226, 238, 255); font-family: &amp;quot;Google Sans&amp;quot;, arial, sans-serif; text-align: left;&quot;&gt;those that need an attribute from another entity (i.e. a foreign key) &lt;b&gt;&lt;u&gt;to constitute a unique&lt;/u&gt;&lt;/b&gt;&lt;/span&gt;&lt;b&gt;&lt;u&gt;&lt;span style=&quot;background-color: rgba(66, 133, 244, 0.3); color: rgb(226, 238, 255); font-family: &amp;quot;Google Sans&amp;quot;, arial, sans-serif; text-align: left;&quot;&gt; &lt;/span&gt;&lt;span style=&quot;color: rgb(226, 238, 255); font-family: &amp;quot;Google Sans&amp;quot;, arial, sans-serif; text-align: left;&quot;&gt;identifier&lt;/span&gt;&lt;/u&gt;&lt;/b&gt;&lt;span style=&quot;color: rgb(232, 234, 237); font-family: &amp;quot;Google Sans&amp;quot;, arial, sans-serif; text-align: left; background-color: rgb(32, 33, 36);&quot;&gt;. In other words, the primary key of a weak entity needs to contain a foreign key that relates it to a strong entity&lt;br&gt;&lt;br&gt;É comum os diagramas Entity Relationship não explicitarem as Foreign Keys, isto é má pratica, porque dificulta a interpretação do diagrama&lt;br&gt;&lt;br&gt;A sinalização se uma relação como fraca é irrelevante visto que qualquer relação fraca está associada a uma entidade fraca, logo assinalar o losango com dupla linha não informa nada de especial&lt;br&gt;&lt;/span&gt;&lt;/font&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="1" vertex="1">
-          <mxGeometry x="360.03999999999996" y="-530" width="690" height="270" as="geometry" />
-        </mxCell>
         <mxCell id="Y0LaDZVLSumVNecySCVG-38" value="PARTIDA" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
           <mxGeometry x="1059.9999999999998" y="513.34" width="120" height="30" as="geometry" />
         </mxCell>
@@ -754,14 +751,17 @@
         <mxCell id="fUptUus7FQkbC4dCLPxE-25" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=none;" parent="1" vertex="1">
           <mxGeometry x="280" y="721.29" width="110" height="29" as="geometry" />
         </mxCell>
-        <mxCell id="XUsPqTZyDlYRG7nBFdsh-1" value="&lt;u&gt;id&lt;/u&gt;" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+        <mxCell id="XUsPqTZyDlYRG7nBFdsh-1" value="&lt;u&gt;id&lt;/u&gt;" style="ellipse;whiteSpace=wrap;html=1;" parent="1" vertex="1">
           <mxGeometry x="167.35999999999999" y="672" width="31.55" height="28" as="geometry" />
         </mxCell>
-        <mxCell id="XUsPqTZyDlYRG7nBFdsh-2" style="rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=none;endFill=0;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="XUsPqTZyDlYRG7nBFdsh-1" target="Y0LaDZVLSumVNecySCVG-19">
+        <mxCell id="XUsPqTZyDlYRG7nBFdsh-2" style="rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=none;endFill=0;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" parent="1" source="XUsPqTZyDlYRG7nBFdsh-1" target="Y0LaDZVLSumVNecySCVG-19" edge="1">
           <mxGeometry relative="1" as="geometry">
             <mxPoint x="231" y="733" as="sourcePoint" />
             <mxPoint x="270" y="730" as="targetPoint" />
           </mxGeometry>
+        </mxCell>
+        <mxCell id="ZvvE3brwUSeNYFBJ_7ub-1" value="&lt;div style=&quot;font-size: 16px;&quot;&gt;&lt;font style=&quot;font-size: 16px;&quot;&gt;In a data model, weak entities are those that need an attribute from another entity (i.e. a foreign key) &lt;b&gt;&lt;u&gt;to constitute a unique identifier&lt;/u&gt;&lt;/b&gt;. In other words, the primary key of a weak entity needs to contain a foreign key that relates it to a strong entity&lt;/font&gt;&lt;/div&gt;&lt;div style=&quot;font-size: 16px;&quot;&gt;&lt;font style=&quot;font-size: 16px;&quot;&gt;&lt;br&gt;&lt;/font&gt;&lt;/div&gt;&lt;div style=&quot;font-size: 16px;&quot;&gt;&lt;font style=&quot;font-size: 16px;&quot;&gt;É comum os diagramas Entity Relationship não explicitarem as Foreign Keys, isto é má pratica, porque dificulta a interpretação do diagrama&lt;/font&gt;&lt;/div&gt;&lt;div style=&quot;font-size: 16px;&quot;&gt;&lt;font style=&quot;font-size: 16px;&quot;&gt;&lt;br&gt;&lt;/font&gt;&lt;/div&gt;&lt;div style=&quot;font-size: 16px;&quot;&gt;&lt;font style=&quot;font-size: 16px;&quot;&gt;A sinalização se uma relação como fraca é irrelevante visto que qualquer relação fraca está associada a uma entidade fraca, logo assinalar o losango com dupla linha não informa nada de especial&lt;/font&gt;&lt;/div&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="380" y="-500" width="550" height="250" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>

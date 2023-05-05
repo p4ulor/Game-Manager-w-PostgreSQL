@@ -45,7 +45,7 @@ CREATE TABLE CHATS(
 );
 
 CREATE TABLE JOGO(
-    id CHAR(10) PRIMARY KEY, --"Os jogos têm como identificador uma referência alfanumérica de dimensão 10"
+    id CHAR(10) PRIMARY KEY CHECK(LENGTH(id)=10), --"Os jogos têm como identificador uma referência alfanumérica de dimensão 10"
     url TEXT NOT NULL UNIQUE,
     nome TEXT NOT NULL UNIQUE,
     --Para cada jogo interessa registar o número de partidas, o número de jogadores e o total de pontos
@@ -107,8 +107,8 @@ CREATE TABLE PARTIDA_MULTIJOGADOR(
 --"As partidas normais devem estar (...) estar associadas ao jogador que as joga e à pontuação por ele obtida" sendo necessário guardar as pontuações obtidas por cada jogador em cada partida.
 --As partidas multi-jogador devem estar associadas aos jogadores que as jogam sendo necessário guardar as pontuações obtidas por cada jogador em cada partida
 CREATE TABLE PONTUACAO_JOGADOR(
-    id_jogador INT NOT NULL,
     id_partida INT NOT NULL,
+    id_jogador INT NOT NULL,
     pontos INT NOT NULL,
     CONSTRAINT fk_id_jogador FOREIGN KEY (id_jogador) REFERENCES JOGADOR(id),
     CONSTRAINT fk_id_partida FOREIGN KEY (id_partida) REFERENCES PARTIDA(id),
