@@ -47,7 +47,7 @@ CREATE OR REPLACE TRIGGER autoGiveBadges AFTER UPDATE ON PARTIDA
     FOR EACH ROW
     WHEN(
         DATE(NEW.data_fim) = CURRENT_DATE -- CURRENT_DATE is reserved word
-        OR DATE(NEW.data_fim) = CURRENT_DATE - INTEGER '1'
+        OR DATE(NEW.data_fim) = CURRENT_DATE - INTEGER '1' --this is because in the case the game starts in a day and finishes in the next
     )
     
     -- Arguments of the procedure of an execute must be strings aparently https://www.postgresql.org/docs/current/sql-createtrigger.html#:~:text=The%20arguments%20are%20literal%20string%20constants

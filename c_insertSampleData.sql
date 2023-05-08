@@ -25,7 +25,7 @@ INSERT INTO CHATS VALUES(DEFAULT, 0, '2023-05-26 19:10:35-07', 'boas', 0);
 INSERT INTO JOGO VALUES('abcefghij0', 'skribll', 'https://skribbl.io/'); --comprado por paulo
 INSERT INTO JOGO VALUES('abcefghij1', 'Age Of War', 'https://www.crazygames.com/game/age-of-war'); --comprado por paulo e miguel
 INSERT INTO JOGO VALUES('abcefghij2', 'Minecraft', 'https://www.minecraft.net/pt-pt'); --comprado pelo miguel
-INSERT INTO JOGO VALUES('abcefghij3', 'Mortal Shell', 'https://store.steampowered.com/app/1110910/Mortal_Shell/'); --com compra, nao jogado por nimguem
+INSERT INTO JOGO VALUES('abcefghij3', 'Mortal Shell', 'https://store.steampowered.com/app/1110910/Mortal_Shell/'); --nao comprado por nimguem
 INSERT INTO JOGO VALUES('abcefghij4', 'Prototype', 'https://store.steampowered.com/app/10150/Prototype/'); --nao comprado por nimguem
 
 --id, dataa, preco, id_jogador, id_jogo
@@ -48,6 +48,8 @@ INSERT INTO PARTIDA VALUES(0, 'abcefghij1', '2023-05-26 10:00:00-00', '2023-05-2
 INSERT INTO PARTIDA VALUES(1, 'abcefghij1', '2023-05-26 13:00:00-00', '2023-05-26 14:00:00-00', 'EU'); --Age Of War, multi, paulo
 INSERT INTO PARTIDA VALUES(2, 'abcefghij1', '2023-05-26 15:00:00-00', '2023-05-26 16:00:00-00', 'EU'); --Age Of War, multi, miguel
 INSERT INTO PARTIDA VALUES(3, 'abcefghij2', '2023-05-27 15:00:00-00', '2023-05-27 18:00:00-00', 'EU'); --Minecraft, normal, paulo
+
+ALTER SEQUENCE PARTIDA_id_seq RESTART WITH 4;
 
 --id_partida, dificuldade
 INSERT INTO PARTIDA_NORMAL VALUES(0, 5); --Age Of War, normal, paulo
