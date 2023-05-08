@@ -43,7 +43,6 @@ CREATE OR REPLACE PROCEDURE iniciarConversaLogica(idJogador JOGADOR.id%TYPE, nom
             RAISE EXCEPTION 'Player does not exist %', idJogador;
         END IF;
 
-        raise notice 'chat group insert';
         INSERT INTO chat_group VALUES (DEFAULT, nomeConversa, idJogador);
     END;
     $$;

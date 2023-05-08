@@ -1,5 +1,5 @@
 /*
- Will probably be read-committed
+
  */
  CREATE OR REPLACE PROCEDURE associarCrachaTansaction(idJogador JOGADOR.id%TYPE, idJogo JOGO.id%TYPE,
                                                      nomeCracha CRACHA.nome%TYPE)
@@ -8,7 +8,7 @@
     $$
     BEGIN
         COMMIT;
-        SET TRANSACTION ISOLATION LEVEL REPEATABLE READ ;
+        SET TRANSACTION ISOLATION LEVEL READ COMMITTED;
         CALL associarCrachaTansacao(idJogador, idJogo, nomeCracha);
     END;
     $$;
