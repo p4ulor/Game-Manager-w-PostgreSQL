@@ -13,18 +13,20 @@ INSERT INTO AMIGOS VALUES(0, 1, TRUE);
 INSERT INTO AMIGOS VALUES(3, 2, FALSE);
 
 --id, nome, id_criador, participantes
-INSERT INTO CHAT_GROUP VALUES(0, 'squad', 0, '{0, 1}');
+INSERT INTO CHAT_GROUP VALUES(0, 'squad', 0);
+ALTER SEQUENCE chat_group_id_seq RESTART WITH 1;
+INSERT INTO CHAT_GROUP_PARTICIPANT VALUES (0, 0);
 
 --id, id_group, dateAndTime, mensagem
-INSERT INTO CHATS VALUES(DEFAULT, 0, '2023-05-26 19:10:25-07', 'ay');
-INSERT INTO CHATS VALUES(DEFAULT, 0, '2023-05-26 19:10:35-07', 'boas');
+INSERT INTO CHATS VALUES(DEFAULT, 0, '2023-05-26 19:10:25-07', 'ay', 0);
+INSERT INTO CHATS VALUES(DEFAULT, 0, '2023-05-26 19:10:35-07', 'boas', 0);
 
---id, nome, totalPartidas, numJogadoresCompraram, totalPontos INT NOT NULL
-INSERT INTO JOGO VALUES('abcefghij0', 'skribll', 'https://skribbl.io/', 0, 0, 0); --comprado por paulo
-INSERT INTO JOGO VALUES('abcefghij1', 'Age Of War', 'https://www.crazygames.com/game/age-of-war', 0, 0, 0); --comprado por paulo e miguel
-INSERT INTO JOGO VALUES('abcefghij2', 'Minecraft', 'https://www.minecraft.net/pt-pt', 0, 0, 0); --comprado pelo miguel
-INSERT INTO JOGO VALUES('abcefghij3', 'Mortal Shell', 'https://store.steampowered.com/app/1110910/Mortal_Shell/', 0, 0, 0); --com compra, nao jogado por nimguem
-INSERT INTO JOGO VALUES('abcefghij4', 'Prototype', 'https://store.steampowered.com/app/10150/Prototype/', 0, 0, 0); --nao comprado por nimguem
+--id, nome
+INSERT INTO JOGO VALUES('abcefghij0', 'skribll', 'https://skribbl.io/'); --comprado por paulo
+INSERT INTO JOGO VALUES('abcefghij1', 'Age Of War', 'https://www.crazygames.com/game/age-of-war'); --comprado por paulo e miguel
+INSERT INTO JOGO VALUES('abcefghij2', 'Minecraft', 'https://www.minecraft.net/pt-pt'); --comprado pelo miguel
+INSERT INTO JOGO VALUES('abcefghij3', 'Mortal Shell', 'https://store.steampowered.com/app/1110910/Mortal_Shell/'); --com compra, nao jogado por nimguem
+INSERT INTO JOGO VALUES('abcefghij4', 'Prototype', 'https://store.steampowered.com/app/10150/Prototype/'); --nao comprado por nimguem
 
 --id, dataa, preco, id_jogador, id_jogo
 INSERT INTO COMPRA VALUES(DEFAULT, '2023-05-26 00:00:00-00', 1.00, 0, 'abcefghij0'); --paulo compra skribbl
@@ -61,6 +63,10 @@ INSERT INTO PONTUACAO_JOGADOR VALUES(2, 1, 5000); --Age Of War, multi, miguel
 INSERT INTO PONTUACAO_JOGADOR VALUES(3, 0, 1000); --Minecraft, normal, paulo
 
 --id_jogador, numJogosQueComprou, numPartidas, totalPontos
-INSERT INTO ESTATISTICA VALUES(0, 1, 2, 19000);
-INSERT INTO ESTATISTICA VALUES(1, 1, 1, 5000);
+INSERT INTO ESTATISTICA_JOGADOR VALUES(0, 1, 2, 20000); -- estatisticas paulo
+INSERT INTO ESTATISTICA_JOGADOR VALUES(1, 1, 1, 5000); -- estatisticas miguel
+
+--id_jogo, totalPartidas, numJogadoresCompraram, totalPontos,
+INSERT INTO ESTATISTICA_JOGO VALUES('abcefghij1', 3, 2, 24000); -- estatisticas Age of War
+INSERT INTO ESTATISTICA_JOGO VALUES('abcefghij2', 1, 1, 1000); -- estatisticas minecraft
 
