@@ -1,9 +1,31 @@
 --Deletes tables (and removes data)
 
-DROP PROCEDURE IF EXISTS criarJogador;
-DROP PROCEDURE IF EXISTS mudarEstadoJogador;
-DROP FUNCTION IF EXISTS getTotalPointsOfPlayer;
-DROP FUNCTION IF EXISTS getTotalGamesOfJogador;
+DROP PROCEDURE IF EXISTS criarJogador; --d)
+DROP PROCEDURE IF EXISTS mudarEstadoJogador; --d)
+DROP FUNCTION IF EXISTS getTotalPointsOfPlayer; --e)
+DROP FUNCTION IF EXISTS getNumGames_aPlayerPlayed; --f)
+DROP FUNCTION IF EXISTS gamePointsPerPlayer; --g)
+
+DROP PROCEDURE IF EXISTS associarCrachaTansaction; --h)
+DROP PROCEDURE IF EXISTS associarCrachaTansacao; --h)
+DROP PROCEDURE IF EXISTS associarCrachaLogica; --h)
+
+DROP PROCEDURE IF EXISTS iniciarConversa; --i)
+DROP PROCEDURE IF EXISTS iniciarConversaTransacao; --i)
+DROP PROCEDURE IF EXISTS iniciarConversaLogica; --i)
+
+DROP PROCEDURE IF EXISTS joinToGroupChat;--j)
+
+DROP PROCEDURE IF EXISTS enviarMensagem; --k)
+DROP PROCEDURE IF EXISTS enviarMensagemTransacao; --k)
+DROP PROCEDURE IF EXISTS enviarMensagemLogica; --k)
+
+DROP VIEW IF EXISTS allInfoPlayer; --l
+
+DROP TRIGGER IF EXISTS autoGiveBadges ON PARTIDA; --m, must be done first because this trigger uses giveBadge
+DROP FUNCTION IF EXISTS giveBadge; --m
+
+DROP FUNCTION IF EXISTS jogadorTotalInfoDeleteFunction; --n
 
 DROP TABLE IF EXISTS ESTATISTICA_JOGO;
 DROP TABLE IF EXISTS ESTATISTICA_JOGADOR;

@@ -35,8 +35,9 @@ INSERT INTO COMPRA VALUES(DEFAULT, '2023-05-26 00:00:00-00', 9999.00, 1, 'abcefg
 INSERT INTO COMPRA VALUES(DEFAULT, '2023-05-26 00:00:00-00', 9.00, 1, 'abcefghij2'); --miguel compra Minecraft
 
 --id_jogo, nome, pontosAssociados
-INSERT INTO CRACHA VALUES('abcefghij0', 'GOAT', 10000, 'https://knowyourmeme.com/memes/thats-why-hes-the-goat');
-INSERT INTO CRACHA VALUES ('abcefghij1', 'Sensational', 5000, 'https://youtu.be/3JiUJm3sAv8');
+INSERT INTO CRACHA VALUES('abcefghij0', 'GOAT', 10000, 'https://knowyourmeme.com/memes/thats-why-hes-the-goat'); --achivement for Minecraft
+INSERT INTO CRACHA VALUES ('abcefghij1', 'Sensational', 5000, 'https://youtu.be/3JiUJm3sAv8'); --achivement for Age Of War
+INSERT INTO CRACHA VALUES('abcefghij3', 'Mortal Shell achievement', 2000, 'https://knowyourmeme.com/memes/what-was-he-cooking'); --achivement for Mortal Shell
 
 --id_jogador, id_jogo, nome
 INSERT INTO CRACHAS_ATRIBUIDOS VALUES(0, 'abcefghij0', 'GOAT');

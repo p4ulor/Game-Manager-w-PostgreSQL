@@ -3,9 +3,9 @@
     A 'SUM' is used in the values received to sum all the points of the same player when the GROUP BY id_jogador is done.
     - Will probably be read-committed
     RETURN - In case of game not having any players with points, will return empty query.
- */
+*/
 
-CREATE OR REPLACE FUNCTION PontosJogoPorjogador(idJogo char(10))
+CREATE OR REPLACE FUNCTION gamePointsPerPlayer(idJogo char(10))
     RETURNS TABLE (idJogador INT, totalPontos INT)
     LANGUAGE PLPGSQL
     AS
@@ -20,5 +20,5 @@ CREATE OR REPLACE FUNCTION PontosJogoPorjogador(idJogo char(10))
     $$;
 
 --test
-SELECT * FROM PontosJogoPorjogador('abcefghij1'); -- expected [0, 19000] and [1, 5000]
+SELECT * FROM gamePointsPerPlayer('abcefghij1'); -- expected [0, 19000] and [1, 5000]
 
