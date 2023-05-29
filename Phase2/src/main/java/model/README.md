@@ -1,0 +1,1 @@
+Since when adding @Column, the default name will be "". Adding the name is necessary when using it
