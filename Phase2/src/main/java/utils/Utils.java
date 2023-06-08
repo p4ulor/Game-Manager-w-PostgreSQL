@@ -1,8 +1,8 @@
 
 package utils;
 
-public class Utils {
-    void print(String s){
+public abstract class Utils {
+    public void pl(String s){
         System.out.println(s);
     }
 

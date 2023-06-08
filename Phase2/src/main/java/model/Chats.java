@@ -14,4 +14,6 @@ public class Chats {
     Date dateAndTime;
     String mensagem;
     int id_jogador;
+
+    public Chats() {}
 }

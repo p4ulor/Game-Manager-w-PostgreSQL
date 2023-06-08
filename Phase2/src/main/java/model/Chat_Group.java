@@ -14,5 +14,7 @@ public class Chat_Group {
 
     @Column(name = "id_criador", nullable = false)
     int id_criador;
+
+    public Chat_Group() {}
 }
 

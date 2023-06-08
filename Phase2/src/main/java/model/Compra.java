@@ -16,4 +16,6 @@ public class Compra {
     float preco; //-- Up to 9999.00
     int id_jogador;
     int id_jogo;
+
+    public Compra() {}
 }

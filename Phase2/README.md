@@ -1,0 +1,3 @@
+- Since when adding @Column, the default name will be "". Adding the name is necessary when using it
+- [Entities/Tables must all have an empty constructor](https://stackoverflow.com/questions/25930949/deployment-of-persistenceunit-failed-close-all-factories-for-this-persist), or use @AllArgsConstructor and @NoArgConructor
+- 

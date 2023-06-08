@@ -14,5 +14,7 @@ public class Partida {
     String id_jogo; //max lenght = 10
     Timestamp data_inicio;
     Timestamp data_fim;
-    Regiao regiao;
+    regiao_enum regiao;
+
+    public Partida() {}
 }

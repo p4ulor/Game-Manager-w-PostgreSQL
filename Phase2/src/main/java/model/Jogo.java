@@ -16,4 +16,6 @@ public class Jogo {
 
     @Column(name = "nome", unique = true, nullable = false)
     String nome;
+
+    public Jogo() {}
 }
