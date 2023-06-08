@@ -27,4 +27,16 @@ public class Parte1 {
         srv.changePlayerState("tyler1", estado_enum.Ativo);
         assertEquals(estado_enum.Ativo, srv.getJogador("tyler1").estado);
     }
+
+    @Test
+    public void _2E_totalPontosJogador(){
+        int totalPoints = srv.getTotalPointsOfPlayer(0); //id = 0 -> paulo
+        assertEquals(20000, totalPoints);
+    }
+
+    @Test
+    public void _2F_totalJogosJogador(){
+        int totalGames = srv.getNumGames_aPlayerPlayed(0); //id = 0 -> paulo
+        assertEquals(2, totalGames); //expected 2 for paulo, age of war and minecraft
+    }
 }
