@@ -10,21 +10,21 @@ public class Jogador extends Utils {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "jogador_id_generator")
     @SequenceGenerator(name = "jogador_id_generator", sequenceName = "jogador_id_seq", allocationSize = 1) //sequenceName is the same as the sequence name in the postgres DB. allocationSize -> https://stackoverflow.com/a/12745902
-    int id;
+    public int id;
 
     @Column(name = "username", unique = true, nullable = false)
-    String username;
+    public String username;
 
     @Column(name = "email", unique = true, nullable = false)
-    String email;
+    public String email;
 
     @Column(name = "estado", nullable = false, columnDefinition = "estado_enum")
     @Enumerated(EnumType.STRING)
-    estado_enum estado = estado_enum.Ativo;
+    public estado_enum estado = estado_enum.Ativo;
 
     @Column(name = "regiao", nullable = false)
     @Enumerated(EnumType.STRING)
-    regiao_enum regiao;
+    public regiao_enum regiao;
 
     public Jogador(){}
 
