@@ -4,7 +4,7 @@ import jakarta.persistence.*;
 import utils.Utils;
 
 @Entity
-@Table(name="Jogador")
+@Table(name=_TableNames.Jogador)
 public class Jogador extends Utils {
 
     @Id
@@ -36,5 +36,16 @@ public class Jogador extends Utils {
 
     public void setEstado(estado_enum estado) {
         this.estado = estado;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (obj == null || getClass() != obj.getClass()) return false;
+
+        Jogador other = (Jogador) obj;
+        return username.equals(other.username)
+                && email.equals(other.email)
+                && regiao == other.regiao;
     }
 }

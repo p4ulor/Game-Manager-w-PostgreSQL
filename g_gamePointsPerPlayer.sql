@@ -20,5 +20,5 @@ CREATE OR REPLACE FUNCTION gamePointsPerPlayer(idJogo char(10))
     $$;
 
 --test
-SELECT * FROM gamePointsPerPlayer('abcefghij1'); -- expected [0, 19000] and [1, 5000]
+SELECT * FROM gamePointsPerPlayer('abcefghij1'); -- expected [0, 19000] and [1, 5000]. abcefghij1 = Age Of War
 

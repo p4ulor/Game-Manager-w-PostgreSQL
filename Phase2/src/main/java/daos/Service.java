@@ -1,11 +1,10 @@
 package daos;
 
 import jakarta.persistence.*;
-import model.estado_enum;
-import model.Jogador;
-import model.regiao_enum;
+import model.*;
 import utils.Utils;
 
+import java.util.LinkedList;
 import java.util.List;
 
 public class Service extends Utils {
@@ -26,6 +25,10 @@ public class Service extends Utils {
         finally { em.close(); }
     }
 
+    public void utils_deletePlayer(String username) {
+        delete("DELETE FROM "+_TableNames.Jogador+" WHERE username = '"+username+"'");
+    }
+
     public void changePlayerState(String username, estado_enum estado){ //2(d) Dado username, desativar ou banir o jogador;
         pl("changePlayerState");
         EntityManager em = emf.createEntityManager();
@@ -33,7 +36,7 @@ public class Service extends Utils {
             EntityTransaction et = em.getTransaction();
             et.begin();
 
-            Query query = em.createQuery("SELECT a FROM Jogador a WHERE a.username = '"+username+"'");
+            Query query = em.createQuery("SELECT a FROM "+_TableNames.Jogador+" a WHERE a.username = '"+username+"'");
             Jogador j = (Jogador) query.getSingleResult();
             j.setEstado(estado);
             em.persist(j);
@@ -49,7 +52,7 @@ public class Service extends Utils {
         EntityManager em = emf.createEntityManager();
         try {
             em.getTransaction().begin();
-            Query query = em.createQuery("SELECT a FROM Jogador a WHERE a.username = '"+username+"'");
+            Query query = em.createQuery("SELECT a FROM "+_TableNames.Jogador+" a WHERE a.username = '"+username+"'");
             Jogador j = (Jogador) query.getSingleResult();
             return j;
         }
@@ -62,9 +65,6 @@ public class Service extends Utils {
         pl("getTotalPointsOfPlayer");
         EntityManager em = emf.createEntityManager();
         try {
-            EntityTransaction et = em.getTransaction();
-            et.begin();
-
             StoredProcedureQuery q = em.createStoredProcedureQuery("getTotalPointsOfPlayer");
             q.registerStoredProcedureParameter(1, Integer.class, ParameterMode.IN);
             q.setParameter(1, idJogadord);
@@ -72,8 +72,6 @@ public class Service extends Utils {
                 Object[] x = (Object[]) q.getSingleResult();
                 return (int) x[0];
             }
-
-            et.commit();
         }
         catch(Exception e) { pl(e.getMessage()); }
         finally { em.close(); }
@@ -84,9 +82,6 @@ public class Service extends Utils {
         pl("getNumGames_aPlayerPlayed");
         EntityManager em = emf.createEntityManager();
         try {
-            EntityTransaction et = em.getTransaction();
-            et.begin();
-
             StoredProcedureQuery q = em.createStoredProcedureQuery("getNumGames_aPlayerPlayed");
             q.registerStoredProcedureParameter(1, Integer.class, ParameterMode.IN);
             q.setParameter(1, idJogador);
@@ -94,11 +89,103 @@ public class Service extends Utils {
                 Object[] x = (Object[]) q.getSingleResult();
                 return (int) x[0];
             }
+        }
+        catch(Exception e) { pl(e.getMessage()); }
+        finally { em.close(); }
+        return -1;
+    }
+
+    public List<GamePointsPerPlayer> gamePointsPerPlayer(String idJogo) {
+        pl("gamePointsPerPlayer");
+        EntityManager em = emf.createEntityManager();
+        try {
+            StoredProcedureQuery q = em.createStoredProcedureQuery("gamePointsPerPlayer");
+            q.registerStoredProcedureParameter(1, String.class, ParameterMode.IN);
+            q.setParameter(1, idJogo);
+
+            if (q.execute()) {
+                List<Object[]> resultList =  q.getResultList();
+                List<GamePointsPerPlayer> tuples = new LinkedList<>();
+                for (Object[] row : resultList) {
+                    tuples.add(new GamePointsPerPlayer((int) row[0], (int) row[1]));
+                }
+                return tuples;
+            }
+        }
+        catch(Exception e) { pl(e.getMessage()); }
+        finally { em.close(); }
+        return null;
+    }
+
+    public void associarCrachaTansaction(int idJogador, String idJogo, String nomeCracha) {
+        pl("associarCrachaTansaction");
+        EntityManager em = emf.createEntityManager();
+        try {
+            EntityTransaction et = em.getTransaction();
+            et.begin();
+
+            //createStoredProcedureQuery is apparently to call FUNCTIONS since when I provide a name for a PROCEDURE I get the error,
+            /**
+             * Internal Exception: org.postgresql.util.PSQLException: ERROR: associarcrachatansaction(integer, unknown, unknown) is a procedure
+             *   Hint: To call a procedure, use CALL.
+             */
+            //Calling associarCrachaTansaction gave error:
+            // Exception Description: No transaction is currently active. without having etc.commit()
+            // And having et.commit() gave error: Internal Exception: org.postgresql.util.PSQLException: ERROR: invalid transaction termination Where: function PL/pgSQL line 3 in COMMIT, because that transaction begins with a COMMIT (for some unknown reason, talk with miguel)
+            Query q = em.createNativeQuery("CALL associarCrachaTansacao("+idJogador+",'"+idJogo+"', '"+nomeCracha+"');");
+            q.executeUpdate();
 
             et.commit();
         }
         catch(Exception e) { pl(e.getMessage()); }
         finally { em.close(); }
-        return -1;
+    }
+
+    public boolean utils_removeBadgeFromPlayer(int id_jogador, String id_jogo, String nome) {
+        String op = "DELETE FROM "+_TableNames.Crachas_Atribuidos+" a " + //must be Crachas_Atribuidos (like the name of the class), JPA is case sensitive apparently
+                "WHERE a.id_jogador="+id_jogador+" AND a.id_jogo='"+id_jogo+"' AND a.nome='"+nome+"'";
+        return delete(op);
+    }
+
+    public void iniciarConversaTransacao(int idJogador, String nomeConversa) {
+        pl("iniciarConversaTransacao");
+        EntityManager em = emf.createEntityManager();
+        try {
+            EntityTransaction et = em.getTransaction();
+            et.begin();
+
+            Query q = em.createNativeQuery("CALL iniciarConversaTransacao("+idJogador+",'"+nomeConversa+"');");
+            q.executeUpdate();
+
+            et.commit();
+        }
+        catch(Exception e) { pl(e.getMessage()); }
+        finally { em.close(); }
+    }
+
+    public boolean utils_deleteConversation(String nomeConversa){
+        //String del1 = "DELETE cgp FROM "+_TableNames.Chat_Group_Participant+" cgp JOIN "+_TableNames.Chat_Group+" cg ON cgp.id_chat_group = cg.id WHERE cg.nome = '"+nomeConversa+"'"; //This doesn't work...
+        String del1 =  "DELETE FROM "+_TableNames.Chat_Group_Participant+" a " +
+                "WHERE a.id_chat_group " +
+                "IN (SELECT b.id FROM "+_TableNames.Chat_Group+" b WHERE b.nome = '"+nomeConversa+"')";
+        String del2 = "DELETE FROM "+_TableNames.Chat_Group+" WHERE nome = '"+nomeConversa+"'"; //must be the 2nd to be executed
+        return delete(del1) && delete(del2);
+    }
+
+    private boolean delete(String query){
+        pl("utils_removeBadgeFromPlayer");
+        EntityManager em = emf.createEntityManager();
+        try {
+            EntityTransaction et = em.getTransaction();
+            et.begin();
+            Query q = em.createQuery(query);
+            int ammountDeleted = q.executeUpdate();
+
+            et.commit();
+            return ammountDeleted!=0;
+        }
+        catch(Exception e) { pl(e.getMessage()); }
+        finally { em.close(); }
+        return false;
     }
 }

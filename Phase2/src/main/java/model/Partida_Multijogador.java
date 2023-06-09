@@ -5,7 +5,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name="Partida_Multijogador")
+@Table(name=_TableNames.Partida_Multijogador)
 public class Partida_Multijogador {
     @Id
     int id_partida;

@@ -3,9 +3,9 @@ package model;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name="Amigos")
+@Table(name=_TableNames.Amigos)
 @IdClass(AmigosID.class)
-@NamedQuery(name="Amigos.findAll", query="SELECT a FROM Amigos a")
+@NamedQuery(name="Amigos.findAll", query="SELECT a FROM "+_TableNames.Amigos+" a")
 public class Amigos {
     @Id
     int id_jogador_pedinte;

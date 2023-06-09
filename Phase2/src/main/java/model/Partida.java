@@ -5,7 +5,7 @@ import jakarta.persistence.*;
 import java.sql.Timestamp;
 
 @Entity
-@Table(name="Partida")
+@Table(name=_TableNames.Partida)
 public class Partida {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

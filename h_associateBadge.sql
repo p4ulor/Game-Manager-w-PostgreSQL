@@ -72,5 +72,5 @@ CREATE OR REPLACE PROCEDURE associarCrachaLogica(idJogador JOGADOR.id%TYPE, idJo
 -- abcefghij1
 -- Sensational
 
-call associarCracha(0, 'abcefghij1', 'Sensational');
+    call associarCrachaTansaction(0, 'abcefghij1', 'Sensational'); --ads badge 'Sensational' to game Age Of War for paulo
 DELETE FROM crachas_atribuidos where id_jogador = 0 AND id_jogo = 'abcefghij1' AND nome = 'Sensational';

@@ -12,9 +12,11 @@ ALTER SEQUENCE JOGADOR_id_seq RESTART WITH 4;
 INSERT INTO AMIGOS VALUES(0, 1, TRUE);
 INSERT INTO AMIGOS VALUES(3, 2, FALSE);
 
---id, nome, id_criador, participantes
+--id, nome, id_criador,
 INSERT INTO CHAT_GROUP VALUES(0, 'squad', 0);
 ALTER SEQUENCE chat_group_id_seq RESTART WITH 1;
+
+--id_chat_group, id_jogador
 INSERT INTO CHAT_GROUP_PARTICIPANT VALUES (0, 0);
 
 --id, id_group, dateAndTime, mensagem

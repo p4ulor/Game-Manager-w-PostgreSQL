@@ -5,7 +5,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name="Estatistica_Jogador")
+@Table(name=_TableNames.Estatistica_Jogador)
 public class Estatistica_Jogador {
     @Id
     int id_jogador;

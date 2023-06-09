@@ -68,6 +68,6 @@ CREATE OR REPLACE TRIGGER chatGroupCreatorIsParticipantTrigger
 
 -- test
 
-call iniciarConversa(0, 'somegroupname');
+call iniciarConversa(0, 'somegroupname'); --paulo creates new conversa
 DELETE FROM chat_group_participant WHERE id_chat_group = (SELECT id_chat_group FROM chat_group where nome = 'somegroupname');
 DELETE FROM chat_group WHERE nome = 'somegroupname';
