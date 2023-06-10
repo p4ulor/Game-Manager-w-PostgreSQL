@@ -2,7 +2,7 @@
 
  */
 
- CREATE OR REPLACE FUNCTION jogadorTotalInfoDeleteFunction() RETURNS TRIGGER
+CREATE OR REPLACE FUNCTION jogadorTotalInfoDeleteFunction() RETURNS TRIGGER
     LANGUAGE PLPGSQL
     AS
     $$

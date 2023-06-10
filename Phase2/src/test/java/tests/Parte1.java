@@ -1,6 +1,7 @@
 package tests;
 
 import daos.GamePointsPerPlayer;
+import daos.PlayerTotalInfo;
 import daos.Service;
 import model.Jogador;
 import model.estado_enum;
@@ -79,17 +80,24 @@ public class Parte1 extends Utils {
 
     @Test
     public void _2J_juntarConversa(){
-
+        srv.joinToGroupChat(1, 0); //adicionar miguel ao grupo chat
+        boolean wasDeleted = srv.utils_removeUserFromConversation(1);
+        assertEquals(true, wasDeleted);
     }
 
     @Test
     public void _2K_enviarMensagem(){
-
+        srv.enviarMensagemTransacao(0, 0, "somemessage"); //add some message to paulo group 'squad'
+        boolean wasDeleted = srv.utils_deleteMensagem("somemessage");
+        assertEquals(true, wasDeleted);
     }
 
     @Test
     public void _2L_jogadorTotalInfo(){
-
+        List<PlayerTotalInfo> totais = srv.jogadorTotalInfo();
+        for(PlayerTotalInfo total : totais){
+            pl(total.toString());
+        }
     }
 
     // B

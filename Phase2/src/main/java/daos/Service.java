@@ -9,7 +9,7 @@ import java.util.List;
 
 public class Service extends Utils {
 
-    static EntityManagerFactory emf = Persistence.createEntityManagerFactory("phase2"); //https://stackoverflow.com/a/36981303/9375488 https://stackoverflow.com/a/4544053/9375488
+    static EntityManagerFactory emf = Persistence.createEntityManagerFactory("phase2"); //https://stackoverflow.com/a/36981303/9375488 https://stackoverflow.com/a/4544053/9375488 https://stackoverflow.com/a/2586683/9375488
 
     public void createPlayer(String username, String email, regiao_enum regiao) { //2(d) Criar os mecanismos que permitam criar o jogador, dados os seus email, região e username, desativar e banir o jogador;
         pl("createPlayer");
@@ -172,8 +172,82 @@ public class Service extends Utils {
         return delete(del1) && delete(del2);
     }
 
+    public void joinToGroupChat(int idJogador, int id_group) {
+        pl("joinToGroupChat");
+        EntityManager em = emf.createEntityManager();
+        try {
+            EntityTransaction et = em.getTransaction();
+            et.begin();
+
+            Query q = em.createNativeQuery("CALL joinToGroupChat("+idJogador+", "+id_group+");");
+            q.executeUpdate();
+
+            et.commit();
+        }
+        catch(Exception e) { pl(e.getMessage()); }
+        finally { em.close(); }
+    }
+
+    public boolean utils_removeUserFromConversation(int idJogador){
+        return delete("DELETE FROM "+_TableNames.Chat_Group_Participant+" a WHERE a.id_jogador = "+idJogador);
+    }
+
+    public void enviarMensagemTransacao(int idJogador, int idConversa, String mensagem) {
+        pl("enviarMensagemTransacao");
+        EntityManager em = emf.createEntityManager();
+        try {
+            EntityTransaction et = em.getTransaction();
+            et.begin();
+
+            Query q = em.createNativeQuery("CALL enviarMensagemTransacao("+idJogador+", "+idConversa+", '"+mensagem+"');");
+            q.executeUpdate();
+
+            et.commit();
+        }
+        catch(Exception e) { pl(e.getMessage()); }
+        finally { em.close(); }
+    }
+
+    public boolean utils_deleteMensagem(String mensagem){
+        return delete("DELETE FROM "+_TableNames.Chats+" a WHERE a.mensagem = '"+mensagem+"'");
+    }
+
+    public List<PlayerTotalInfo> jogadorTotalInfo() {
+        pl("jogadorTotalInfo");
+        EntityManager em = emf.createEntityManager();
+        try {
+            Query q = em.createNativeQuery("SELECT * FROM allInfoPlayer");
+
+            LinkedList<PlayerTotalInfo> list = new LinkedList<>();
+            List<Object[]> tuples = q.getResultList();
+            for(Object[] o : tuples){
+                //numgamesplayed, totalpoints and numtotalpartidas for some reason returns Long
+                int numgamesplayed = 0;
+                int totalpoints = 0;
+                int numtotalpartidas = 0;
+                if(o[4]!=null) numgamesplayed = ((Long) o[4]).intValue();
+                if(o[5]!=null) totalpoints = ((Long) o[5]).intValue();
+                if(o[6]!=null) numtotalpartidas = ((Long) o[6]).intValue();
+                list.add(new PlayerTotalInfo(
+                        (Integer) o[0], //id
+                        estado_enum.valueOf((String) o[1]),
+                        (String) o[2], //email
+                        (String) o[3], //username
+                        numgamesplayed,
+                        totalpoints,
+                        numtotalpartidas
+                ));
+            }
+
+            return list;
+        }
+        catch(Exception e) { pl(e.getMessage()); }
+        finally { em.close(); }
+        return null;
+    }
+
     private boolean delete(String query){
-        pl("utils_removeBadgeFromPlayer");
+        pl("delete");
         EntityManager em = emf.createEntityManager();
         try {
             EntityTransaction et = em.getTransaction();
@@ -188,4 +262,5 @@ public class Service extends Utils {
         finally { em.close(); }
         return false;
     }
+
 }

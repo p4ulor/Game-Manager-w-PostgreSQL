@@ -6,7 +6,7 @@
 */
 
 CREATE OR REPLACE VIEW allInfoPlayer AS 
-    SELECT id, estado, email, username, numGamesPlayed, totalPoints
+    SELECT id, estado, email, username, numGamesPlayed, totalPoints, numtotalpartidas
     FROM JOGADOR
     
     FULL OUTER JOIN(
@@ -16,7 +16,7 @@ CREATE OR REPLACE VIEW allInfoPlayer AS
     ) AS POINTS ON POINTS.id_jogador = JOGADOR.id
 
     FULL OUTER JOIN(
-        SELECT PONTUACAO_JOGADOR.id_jogador AS id_jogador, COUNT(DISTINCT PARTIDA.id_jogo) AS numGamesPlayed
+        SELECT PONTUACAO_JOGADOR.id_jogador AS id_jogador, COUNT(DISTINCT PARTIDA.id_jogo) AS numGamesPlayed, COUNT(PARTIDA.id_jogo) AS numtotalpartidas
 		FROM PARTIDA
 		INNER JOIN PONTUACAO_JOGADOR ON PARTIDA.id = PONTUACAO_JOGADOR.id_partida
 		GROUP BY id_jogador

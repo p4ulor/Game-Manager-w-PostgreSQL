@@ -1,4 +1,4 @@
-  CREATE OR REPLACE PROCEDURE enviarMensagem(idJogador JOGADOR.id%TYPE, idConversa CHAT_GROUP.id%TYPE, mensagem CHATS.mensagem%TYPE)
+CREATE OR REPLACE PROCEDURE enviarMensagem(idJogador JOGADOR.id%TYPE, idConversa CHAT_GROUP.id%TYPE, mensagem CHATS.mensagem%TYPE)
     LANGUAGE PLPGSQL
     AS
     $$
@@ -9,7 +9,7 @@
     END;
     $$;
 
-  CREATE OR REPLACE PROCEDURE enviarMensagemTransacao(idJogador JOGADOR.id%TYPE, idConversa CHAT_GROUP.id%TYPE, mensagem CHATS.mensagem%TYPE)
+CREATE OR REPLACE PROCEDURE enviarMensagemTransacao(idJogador JOGADOR.id%TYPE, idConversa CHAT_GROUP.id%TYPE, mensagem CHATS.mensagem%TYPE)
     LANGUAGE PLPGSQL
     AS
     $$
@@ -28,7 +28,7 @@
     END;
     $$;
 
-  CREATE OR REPLACE PROCEDURE enviarMensagemLogica(idJogador JOGADOR.id%TYPE, idConversa CHAT_GROUP.id%TYPE, mensagem CHATS.mensagem%TYPE)
+CREATE OR REPLACE PROCEDURE enviarMensagemLogica(idJogador JOGADOR.id%TYPE, idConversa CHAT_GROUP.id%TYPE, mensagem CHATS.mensagem%TYPE)
     LANGUAGE PLPGSQL
     AS
     $$
