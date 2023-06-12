@@ -37,6 +37,9 @@ public class Jogador extends Utils {
     public void setEstado(estado_enum estado) {
         this.estado = estado;
     }
+    public void setRegiao(regiao_enum regiao) {
+        this.regiao = regiao;
+    }
 
     @Override
     public boolean equals(Object obj) {

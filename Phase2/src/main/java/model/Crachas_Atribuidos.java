@@ -8,12 +8,11 @@ import java.io.Serializable;
 @Table(name=_TableNames.Crachas_Atribuidos)
 public class Crachas_Atribuidos {
     @EmbeddedId
-    Crachas_AtribuidosPK id;
+    public Crachas_AtribuidosPK id;
 
     public Crachas_AtribuidosPK getId() {
         return id;
     }
-
     public void setId(Crachas_AtribuidosPK id) {
         this.id = id;
     }

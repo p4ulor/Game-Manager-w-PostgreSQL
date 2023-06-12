@@ -9,12 +9,13 @@ import java.sql.Timestamp;
 public class Partida {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    int id;
+    public int id;
 
-    String id_jogo; //max lenght = 10
-    Timestamp data_inicio;
-    Timestamp data_fim;
-    regiao_enum regiao;
+    public String id_jogo; //max lenght = 10
+    public Timestamp data_inicio;
+    public Timestamp data_fim;
+    public regiao_enum regiao;
 
     public Partida() {}
+
 }

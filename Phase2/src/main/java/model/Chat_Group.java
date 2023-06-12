@@ -7,16 +7,21 @@ import jakarta.persistence.*;
 public class Chat_Group {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    int id; //(id_chat_group)
+    public int id; //(id_chat_group)
 
     @Column(name = "nome", nullable = false)
-    String nome;
+    public String nome;
 
     @Column(name = "id_criador", nullable = false)
-    int id_criador;
+    public int id_criador;
 
     public Chat_Group() {}
 
-    static String a = "";
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+    public void setId_criador(int id_criador) {
+        this.id_criador = id_criador;
+    }
 }
 

@@ -577,7 +577,7 @@ CREATE OR REPLACE VIEW allInfoPlayer AS
 		GROUP BY id_jogador
     ) AS gamesPlayed ON gamesPlayed.id_jogador = JOGADOR.id
 	
-	WHERE estado !='Banido'
+	WHERE estado !='Banido';
 
 ----------------------------------- M)
 

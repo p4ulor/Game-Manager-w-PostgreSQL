@@ -9,9 +9,13 @@ import java.io.Serializable;
 public class Pontuacao_Jogador {
 
     @EmbeddedId
-    Pontuacao_JogadorPK id;
-    int pontos;
+    public Pontuacao_JogadorPK id;
+    public int pontos;
 
     public Pontuacao_Jogador() {}
+
+    public void setPontos(int pontos) {
+        this.pontos = pontos;
+    }
 }
 

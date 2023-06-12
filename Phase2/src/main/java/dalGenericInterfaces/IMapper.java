@@ -1,12 +1,14 @@
 package dalGenericInterfaces;
 
-public interface IMapper<Tentity,Tkey>{
+import services.Service;
 
-    Tkey create(Tentity e) throws Exception;
+public interface IMapper<Tentity, Tkey>{
 
-    Tentity read(Tkey k) throws Exception; // acesso dada a chave
+    Tkey create(Tentity entity) throws Exception;
 
-    void update(Tentity e) throws Exception;
+    Tentity read(Tkey key) throws Exception; // acesso dada a chave
 
-    void delete(Tentity e) throws Exception;
+    void update(Tentity entity) throws Exception;
+
+    void delete(Tentity entity) throws Exception;
 }

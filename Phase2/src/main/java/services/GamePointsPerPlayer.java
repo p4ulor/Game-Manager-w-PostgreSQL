@@ -1,4 +1,4 @@
-package daos;
+package services;
 
 public class GamePointsPerPlayer {
     private int idjogador;
@@ -12,7 +12,6 @@ public class GamePointsPerPlayer {
     public int getIdJogador() {
         return idjogador;
     }
-
     public void setIdJogador(int idJogador) {
         this.idjogador = idJogador;
     }
@@ -20,7 +19,6 @@ public class GamePointsPerPlayer {
     public int getPontos() {
         return totalpontos;
     }
-
     public void setPontos(int pontos) {
         this.totalpontos = pontos;
     }

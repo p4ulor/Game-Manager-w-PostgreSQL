@@ -13,7 +13,6 @@ public class CrachaPK implements Serializable {
     public String getId_jogo() {
         return id_jogo;
     }
-
     public void setId_jogo(String id_jogo) {
         this.id_jogo = id_jogo;
     }
@@ -21,7 +20,6 @@ public class CrachaPK implements Serializable {
     public String getNome() {
         return nome;
     }
-
     public void setNome(String nome) {
         this.nome = nome;
     }

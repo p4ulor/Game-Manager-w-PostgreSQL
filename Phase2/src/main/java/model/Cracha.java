@@ -7,7 +7,7 @@ import jakarta.persistence.*;
 public class Cracha {
 
     @EmbeddedId
-    private CrachaPK id;
+    public CrachaPK id;
 
     int pontosAssociados;
     String url;
@@ -17,7 +17,6 @@ public class Cracha {
     public CrachaPK getId() {
         return id;
     }
-
     public void setId(CrachaPK id) {
         this.id = id;
     }
@@ -25,7 +24,6 @@ public class Cracha {
     public int getPontosAssociados() {
         return pontosAssociados;
     }
-
     public void setPontosAssociados(int pontosAssociados) {
         this.pontosAssociados = pontosAssociados;
     }
@@ -33,11 +31,9 @@ public class Cracha {
     public String getUrl() {
         return url;
     }
-
     public void setUrl(String url) {
         this.url = url;
     }
-
 
 }
 

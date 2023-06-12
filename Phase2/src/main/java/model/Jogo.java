@@ -9,13 +9,20 @@ public class Jogo {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(length = 10, unique = true, nullable = false)
-    String id; //"Os jogos têm como identificador uma referência alfanumérica de dimensão 10"
+    public String id; //"Os jogos têm como identificador uma referência alfanumérica de dimensão 10"
 
-    @Column(name = "text", unique = true, nullable = false)
-    String text;
+    @Column(name = "url", unique = true, nullable = false)
+    public String url;
 
     @Column(name = "nome", unique = true, nullable = false)
-    String nome;
+    public String nome;
 
     public Jogo() {}
+
+    public void setUrl(String url) {
+        this.url = url;
+    }
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
 }
