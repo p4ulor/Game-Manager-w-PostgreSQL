@@ -11,7 +11,7 @@ public class CrachaPK implements Serializable {
     String nome;
 
     public CrachaPK(String id_jogo, String nome) {
-        this.id_jogo = nome;
+        this.id_jogo = id_jogo;
         this.nome = nome;
     }
 
