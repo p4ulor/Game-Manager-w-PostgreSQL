@@ -18,20 +18,20 @@ public class Service extends Utils implements AutoCloseable {
     private EntityTransaction et;
     private int etCounter;
 
-    private MapperChatGroup mchatgroup = new MapperChatGroup(this);
-    MapperChatGroupParticipant mChatGroupParticipant = new MapperChatGroupParticipant(this);
-    MapperChats mChats = new MapperChats(this);
-    MapperCompra mCompra = new MapperCompra(this);
-    MapperCracha mCracha = new MapperCracha(this);
-    MapperCrachasAtribuidos mCrachasAtribuidos = new MapperCrachasAtribuidos(this);
-    MapperEstatisticaJogador mEstatisticaJogador = new MapperEstatisticaJogador(this);
-    MapperEstatisticaJogo mEstatisticaJogo = new MapperEstatisticaJogo(this);
-    MapperJogador mJogador = new MapperJogador(this);
-    MapperJogo mJogo = new MapperJogo(this);
-    MapperPartida mPartida = new MapperPartida(this);
-    MapperPartidaMultijogador mPartidaMultijogador = new MapperPartidaMultijogador(this);
-    MapperPartidaNormal mPartidaNormal = new MapperPartidaNormal(this);
-    MapperPontuacaoJogador mPontuacaoJogador = new MapperPontuacaoJogador(this);
+    public MapperChatGroup mchatgroup = new MapperChatGroup(this);
+    public MapperChatGroupParticipant mChatGroupParticipant = new MapperChatGroupParticipant(this);
+    public MapperChats mChats = new MapperChats(this);
+    public MapperCompra mCompra = new MapperCompra(this);
+    public MapperCracha mCracha = new MapperCracha(this);
+    public MapperCrachasAtribuidos mCrachasAtribuidos = new MapperCrachasAtribuidos(this);
+    public MapperEstatisticaJogador mEstatisticaJogador = new MapperEstatisticaJogador(this);
+    public MapperEstatisticaJogo mEstatisticaJogo = new MapperEstatisticaJogo(this);
+    public MapperJogador mJogador = new MapperJogador(this);
+    public MapperJogo mJogo = new MapperJogo(this);
+    public MapperPartida mPartida = new MapperPartida(this);
+    public MapperPartidaMultijogador mPartidaMultijogador = new MapperPartidaMultijogador(this);
+    public MapperPartidaNormal mPartidaNormal = new MapperPartidaNormal(this);
+    public MapperPontuacaoJogador mPontuacaoJogador = new MapperPontuacaoJogador(this);
 
     public Service(){}
 
@@ -48,12 +48,20 @@ public class Service extends Utils implements AutoCloseable {
         }
     }
 
-    public Object find(Class<? extends Object> clss, Object id){
+    /*public Object find(Class<? extends Object> clss, Object id){
         return em.find(clss, id);
-    }
+    }*/
 
     public Object findWithLock(Class<? extends Object> clss, Object id, LockModeType lockModeType){
-        return em.find(clss, id, lockModeType);
+        AtomicReference o = new AtomicReference<Object>(null);
+        try {
+            beginAndCommit(() -> {
+                o.set(em.find(clss, id, lockModeType));
+            });
+        } catch (Exception e) {
+            return null;
+        }
+        return o.get();
     }
 
     public boolean doesExist(Class<? extends Object> clss, Object id){
@@ -321,6 +329,117 @@ public class Service extends Utils implements AutoCloseable {
         return false;
     }
 
+    // Exercicio 1 b) e c)
+
+    public void associateBadgeWithoutSp(int idJogador, String idJogo, String nomeCracha, boolean callFunc) throws Exception {
+        CrachaPK requestedCracha = new CrachaPK(idJogo, nomeCracha);
+
+        try {
+            Cracha cracha = mCracha.read(requestedCracha);
+            if (cracha == null) {
+                System.out.println("Did not insert as there are no badges with the chosen characteristics.");
+                return;
+            }
+            int badgePoints = cracha.getPontosAssociados();
+
+            int points = -1;
+            try {
+                points = pontosJogoJogador(idJogo, idJogador, callFunc);
+            } catch(IllegalArgumentException ex) {
+                System.out.println("Did not insert as there are no points in the chosen game for the chosen player.");
+                return;
+            }
+
+            if (points < badgePoints) {
+                System.out.println("Cracha already associated.");
+                return;
+            }
+        } catch(Exception ex) {
+            System.out.println(ex.getMessage());
+            throw ex;
+        }
+
+        System.out.println("Associating cracha.");
+
+        Crachas_Atribuidos crachasAtribuidos = new Crachas_Atribuidos();
+        Crachas_AtribuidosPK crachasAtribuidosPK = new Crachas_AtribuidosPK();
+        crachasAtribuidosPK.setId_jogador(idJogador);
+        crachasAtribuidosPK.setNome(nomeCracha);
+        crachasAtribuidosPK.setId_jogo(idJogo);
+        crachasAtribuidos.setId(crachasAtribuidosPK);
+
+        try {
+            mCrachasAtribuidos.create(crachasAtribuidos);
+        } catch(Exception ex) {
+            System.out.println(ex.getMessage());
+            throw ex;
+        }
+    }
+
+    public Integer pontosJogoJogador(String idJogo, int idJogador, boolean callFunc) {
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("phase2");
+        EntityManager em = emf.createEntityManager();
+
+        try {
+            if (callFunc) {
+                for (GamePointsPerPlayer tuple : gamePointsPerPlayer(idJogo)) {
+                    if (tuple.getIdJogador() == idJogador) {
+                        return tuple.getPontos();
+                    }
+                }
+                return null;
+            }
+            return em.createQuery(
+                    "select CAST(SUM(pj.pontos) as INTEGER)" +
+                            " from Pontuacao_Jogador pj inner join Partida p on pj.id.id_partida = p.id" +
+                            " where p.id_jogo = :idJogo and pj.id.id_jogador = :idJogador group by pj.id.id_jogador",
+                    Integer.class
+            ).setParameter("idJogo", idJogo).setParameter("idJogador", idJogador).getSingleResult();
+        } catch (IllegalArgumentException ex) {
+            System.out.println(ex.getMessage());
+            return null;
+        }
+    }
+    public List<GamePointsPerPlayer> pontosJogoPorJogador(String idJogo) {
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("phase2");
+        EntityManager em = emf.createEntityManager();
+
+        try {
+            return em.createQuery(
+                    "select NEW daos.GamePointsPerPlayer(pj.id.id_jogador, CAST(SUM(pj.pontos) as INTEGER))" +
+                            " from Pontuacao_Jogador pj inner join Partida p on pj.id.id_partida = p.id" +
+                            " where p.id_jogo = :idJogo group by pj.id.id_jogador",
+                    GamePointsPerPlayer.class
+            ).setParameter("idJogo", idJogo).getResultList();
+        } catch (IllegalArgumentException ex) {
+            System.out.println(ex.getMessage());
+            return null;
+        }
+    }
+
+    public void _2h_delete(int idJogador, String idJogo, String nomeCracha) throws Exception {
+
+        Crachas_AtribuidosPK crachasAtribuidosPK = new Crachas_AtribuidosPK();
+        crachasAtribuidosPK.setId_jogador(idJogador);
+        crachasAtribuidosPK.setId_jogo(idJogo);
+        crachasAtribuidosPK.setNome(nomeCracha);
+
+        Crachas_Atribuidos crachasAtribuidos = new Crachas_Atribuidos();
+        crachasAtribuidos.setId(crachasAtribuidosPK);
+        try {
+            mCrachasAtribuidos.delete(crachasAtribuidos);
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
+            throw ex;
+        }
+
+        /*em.createQuery("delete from Crachas_Atribuidos ca where ca.id.id_jogador = :idJogador and ca.id.id_jogo = :idJogo and ca.id.nome = :nomeCracha")
+                .setParameter("idJogador", idJogador)
+                .setParameter("idJogo", idJogo)
+                .setParameter("nomeCracha", nomeCracha).executeUpdate();
+        */
+    }
+
     //Exercicio 2
     /**
      a)
@@ -330,11 +449,11 @@ public class Service extends Utils implements AutoCloseable {
      (c)
      realizar o mesmo que em (a), mas usando controlo de concorrência pessimista
      */
-    public void increase20centBadgeOnGame(int id_jogo, String nome, boolean isOptimistic){
+    public void increase20centBadgeOnGame(String id_jogo, String nome, boolean isOptimistic){
         pl("increase20centBadgeOnGameOptimisticLock");
         try {
             beginAndCommit(() -> {
-                String queri = selectFromWhere("a", _TableNames.Cracha, "a.id_jogo = "+id_jogo+" AND a.nome = "+nome);
+                String queri = selectFromWhere("a", _TableNames.Cracha, "a.id_jogo = '"+id_jogo+"' AND a.nome = '"+nome+"'");
                 Query query = em.createQuery(queri);
                 Cracha crachaObtained = (Cracha) query.getSingleResult(); // observed
 

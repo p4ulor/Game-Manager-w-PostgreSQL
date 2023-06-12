@@ -107,156 +107,29 @@ public class Exercicio1 extends Utils {
      * procedimento armazenado nem qualquer função pgSql;
      */
 
-    //@Test
+    @Test
     public void _2h_associateBadgeWithoutSP() throws Exception {
-        int idJogador = 0;
-        String idJogo = "abcefghij1";
+        int idJogador = 0; //paulo
+        String idJogo = "abcefghij1"; //Age of war
         String nomeCracha = "Sensational";
 
-        CrachaPK requestedCracha = new CrachaPK();
-        requestedCracha.setId_jogo(idJogo);
-        requestedCracha.setNome(nomeCracha);
-
-        RepoCracha repoCracha = new RepoCracha();
-
-        try {
-            Cracha cracha = null; //todo
-            if (cracha == null) {
-                pl("Did not insert as there are no badges with the chosen characteristics.");
-                return;
-            }
-            int badgePoints = cracha.getPontosAssociados();
-
-            int points = -1;
-            try {
-                points = pontosJogoJogador(idJogo, idJogador);
-            } catch(IllegalArgumentException ex) {
-                pl("Did not insert as there are no points in the chosen game for the chosen player.");
-                return;
-            }
-
-            if (points < badgePoints) {
-                pl("Cracha already associated.");
-                return;
-            }
-        } catch(Exception ex) {
-            System.out.println(ex.getMessage());
-            throw ex;
-        }
-
-        System.out.println("Associating cracha.");
-        RepoCrachasAtribuidos repoCrachasAtribuidos = new RepoCrachasAtribuidos();
-
-        Crachas_Atribuidos crachasAtribuidos = new Crachas_Atribuidos();
-        Crachas_AtribuidosPK crachasAtribuidosPK = new Crachas_AtribuidosPK();
-        crachasAtribuidosPK.setId_jogador(idJogador);
-        crachasAtribuidosPK.setNome(nomeCracha);
-        crachasAtribuidosPK.setId_jogo(idJogo);
-        crachasAtribuidos.setId(crachasAtribuidosPK);
-
-         try {
-             //repoCrachasAtribuidos.add(crachasAtribuidos);
-         } catch(Exception ex) {
-             pl(ex.getMessage());
-             throw ex;
-         }
-
-         Thread.sleep(20000);
-        _2h_delete(idJogador, idJogo, nomeCracha);
+        srv.associateBadgeWithoutSp(idJogador, idJogo, nomeCracha, false);
+        srv._2h_delete(idJogador, idJogo, nomeCracha);
     }
-
-    public Integer pontosJogoJogador(String idJogo, int idJogador) {
-        EntityManagerFactory emf = Persistence.createEntityManagerFactory(PERSISTENCE_NAME);
-        EntityManager em = emf.createEntityManager();
-
-        try {
-            return em.createQuery(
-                    "select CAST(SUM(pj.pontos) as INTEGER)" +
-                            " from Pontuacao_Jogador pj inner join Partida p on pj.id.id_partida = p.id" +
-                            " where p.id_jogo = :idJogo and pj.id.id_jogador = :idJogador group by pj.id.id_jogador",
-                    Integer.class
-            ).setParameter("idJogo", idJogo).setParameter("idJogador", idJogador).getSingleResult();
-        } catch (IllegalArgumentException ex) {
-            pl(ex.getMessage());
-            return null;
-        }
-    }
-
-    public List<GamePointsPerPlayer> pontosJogoPorJogador(String idJogo) {
-        EntityManagerFactory emf = Persistence.createEntityManagerFactory("phase2");
-        EntityManager em = emf.createEntityManager();
-
-        try {
-            return em.createQuery(
-                    "select NEW daos.GamePointsPerPlayer(pj.id.id_jogador, CAST(SUM(pj.pontos) as INTEGER))" +
-                            " from Pontuacao_Jogador pj inner join Partida p on pj.id.id_partida = p.id" +
-                            " where p.id_jogo = :idJogo group by pj.id.id_jogador",
-                    GamePointsPerPlayer.class
-            ).setParameter("idJogo", idJogo).getResultList();
-        } catch (IllegalArgumentException ex) {
-            pl(ex.getMessage());
-            return null;
-        }
-    }
-
-
-
-
 
     // C
     /**
      * Realizar a funcionalidade 2h, descrita na fase 1 deste trabalho, reutilizando os
      * procedimentos armazenados e funções que a funcionalidade original usa;
      */
-    //@Test
+    @Test
     public void _2h_associateBadge() throws Exception {
         int idJogador = 0;
         String idJogo = "abcefghij1";
         String nomeCracha = "Sensational";
 
-        EntityManagerFactory emf = Persistence.createEntityManagerFactory(PERSISTENCE_NAME);
-        EntityManager em = emf.createEntityManager();
-
-        em.getTransaction().begin(); // É necessário com call
-        /* Query q = em.createNativeQuery("call associarCrachaTansaction(?1, ?2, ?3)");
-        q.setParameter(1, idJogador);
-        q.setParameter(2, idJogo);
-        q.setParameter(3, nomeCracha);
-        q.executeUpdate(); */
-
-        StoredProcedureQuery query = em.createNamedStoredProcedureQuery("associarCrachaLogica");
-        query.setParameter(1, idJogador);
-        query.setParameter(2, idJogo);
-        query.setParameter(3, nomeCracha);
-        query.execute();
-
-        em.getTransaction().commit();
-
-        _2h_delete(idJogador, idJogo, nomeCracha);
-    }
-
-    public void _2h_delete(int idJogador, String idJogo, String nomeCracha) throws Exception {
-        RepoCrachasAtribuidos repoCrachasAtribuidos = new RepoCrachasAtribuidos();
-
-        Crachas_AtribuidosPK crachasAtribuidosPK = new Crachas_AtribuidosPK();
-        crachasAtribuidosPK.setId_jogador(idJogador);
-        crachasAtribuidosPK.setId_jogo(idJogo);
-        crachasAtribuidosPK.setNome(nomeCracha);
-
-        Crachas_Atribuidos crachasAtribuidos = new Crachas_Atribuidos();
-        crachasAtribuidos.setId(crachasAtribuidosPK);
-        try {
-            //repoCrachasAtribuidos.delete(crachasAtribuidos);
-        } catch (Exception ex) {
-            pl(ex.getMessage());
-            throw ex;
-        }
-
-        /*em.createQuery("delete from Crachas_Atribuidos ca where ca.id.id_jogador = :idJogador and ca.id.id_jogo = :idJogo and ca.id.nome = :nomeCracha")
-                .setParameter("idJogador", idJogador)
-                .setParameter("idJogo", idJogo)
-                .setParameter("nomeCracha", nomeCracha).executeUpdate();
-        */
+        srv.associateBadgeWithoutSp(idJogador, idJogo, nomeCracha, true);
+        srv._2h_delete(idJogador, idJogo, nomeCracha);
     }
 }
 

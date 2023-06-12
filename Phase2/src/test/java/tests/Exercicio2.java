@@ -1,7 +1,11 @@
 package tests;
 
+import model.CrachaPK;
+import org.junit.Test;
 import services.Service;
 import utils.Utils;
+
+import static org.junit.Assert.assertEquals;
 
 public class Exercicio2 extends Utils {
     Service srv = new Service();
@@ -12,11 +16,17 @@ public class Exercicio2 extends Utils {
      descrita a forma como as situações de erro foram criadas para teste desta alínea;
      */
 
-    public void testA(){
-
+    @Test
+    public void testA() throws Exception {
+        srv.increase20centBadgeOnGame("abcefghij0", "GOAT", true); //Increase in 20cent badge 'GOAT' for minecraft from 12000
+        int newPoints = srv.mCracha.read(new CrachaPK("abcefghij0", "GOAT")).getPontosAssociados();
+        assertEquals(12000, newPoints);
     }
 
-    public void testB(){
-
+    @Test
+    public void testB() throws Exception {
+        srv.increase20centBadgeOnGame("abcefghij0", "GOAT", false); //Increase in 20cent badge 'GOAT' for minecraft from 12000
+        int newPoints = srv.mCracha.read(new CrachaPK("abcefghij0", "GOAT")).getPontosAssociados();
+        assertEquals(12000, newPoints);
     }
 }

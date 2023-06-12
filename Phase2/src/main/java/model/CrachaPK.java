@@ -10,6 +10,13 @@ public class CrachaPK implements Serializable {
     String id_jogo;
     String nome;
 
+    public CrachaPK(String id_jogo, String nome) {
+        this.id_jogo = nome;
+        this.nome = nome;
+    }
+
+    public CrachaPK(){}
+
     public String getId_jogo() {
         return id_jogo;
     }
