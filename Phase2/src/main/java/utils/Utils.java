@@ -2,6 +2,7 @@
 package utils;
 
 public abstract class Utils {
+    public static final String PERSISTENCE_NAME = "phase2";
     public void pl(String s){
         System.out.println(s);
     }
