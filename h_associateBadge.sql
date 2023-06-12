@@ -49,7 +49,7 @@ CREATE OR REPLACE PROCEDURE associarCrachaLogica(idJogador JOGADOR.id%TYPE, idJo
             RETURN; -- maybe exception here
         END IF;
 
-        SELECT totalPontos INTO points FROM PontosJogoPorJogador(idJogo) WHERE PontosJogoPorJogador.idjogador = associarCrachaLogica.idJogador;
+        SELECT totalPontos INTO points FROM gamePointsPerPlayer(idJogo) WHERE gamePointsPerPlayer.idjogador = associarCrachaLogica.idJogador;
         RAISE NOTICE 'points: %', points;
         IF points IS NULL then
             RAISE NOTICE 'Did not insert as there are no points in the chosen game for the chosen player.';

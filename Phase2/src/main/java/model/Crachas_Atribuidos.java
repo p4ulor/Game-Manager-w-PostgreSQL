@@ -1,20 +1,22 @@
 package model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.IdClass;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
+
+import java.io.Serializable;
 
 @Entity
 @Table(name=_TableNames.Crachas_Atribuidos)
-@IdClass(Crachas_Atribuidos.class)
 public class Crachas_Atribuidos {
-    @Id
-    int id_jogador;
-    @Id
-    String id_jogo; //max lenght = 10
-    @Id
-    String nome;
+    @EmbeddedId
+    Crachas_AtribuidosPK id;
+
+    public Crachas_AtribuidosPK getId() {
+        return id;
+    }
+
+    public void setId(Crachas_AtribuidosPK id) {
+        this.id = id;
+    }
 
     public Crachas_Atribuidos() {}
 }

@@ -1,26 +1,43 @@
 package model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.IdClass;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 @Entity
 @Table(name=_TableNames.Cracha)
-@IdClass(CrachaID.class)
 public class Cracha {
-    @Id
-    String id_jogo; //max lenght = 10
-    @Id
-    String nome;
+
+    @EmbeddedId
+    private CrachaPK id;
+
     int pontosAssociados;
     String url;
 
     public Cracha() {}
+
+    public CrachaPK getId() {
+        return id;
+    }
+
+    public void setId(CrachaPK id) {
+        this.id = id;
+    }
+
+    public int getPontosAssociados() {
+        return pontosAssociados;
+    }
+
+    public void setPontosAssociados(int pontosAssociados) {
+        this.pontosAssociados = pontosAssociados;
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
+    }
+
+
 }
 
-@IdClass(CrachaID.class)
-class CrachaID {
-    String id_jogo;
-    String nome;
-}

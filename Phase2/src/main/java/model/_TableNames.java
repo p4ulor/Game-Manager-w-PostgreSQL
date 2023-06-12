@@ -15,5 +15,5 @@ public class _TableNames {
     public static final String Partida = "Partida";
     public static final String Partida_Multijogador = "Partida_Multijogador";
     public static final String Partida_Normal = "Partida_Normal";
-    public static final String Pontuacao_JogadorID = "Pontuacao_JogadorID";
+    public static final String Pontuacao_Jogador = "Pontuacao_Jogador";
 }
