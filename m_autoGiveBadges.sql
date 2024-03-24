@@ -1,3 +1,5 @@
+DO $$ BEGIN END; $$ LANGUAGE PLPGSQL; --for github indexing
+-----------------------------------------------------------
 /*
     Criar os mecanismos necessários para que, de forma automática, quando uma partida
     termina, se proceda à atribuição de crachás do jogo a que ela pertence. 

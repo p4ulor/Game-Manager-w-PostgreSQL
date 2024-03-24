@@ -1,3 +1,4 @@
+DO $$ BEGIN END; $$ LANGUAGE PLPGSQL; --for github indexing
 /* NOTES
 - BY DEFAULT AS IDENTIFY - https://www.postgresqltutorial.com/postgresql-tutorial/postgresql-identity-column/#:~:text=issue%20an%20error.-,The%20GENERATED%20BY%20DEFAULT,-also%20instructs%20PostgreSQL
 - Reserved keywords - https://www.postgresql.org/docs/current/sql-keywords-appendix.html

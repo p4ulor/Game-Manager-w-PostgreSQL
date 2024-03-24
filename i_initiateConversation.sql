@@ -1,8 +1,7 @@
-/*
+DO $$ BEGIN END; $$ LANGUAGE PLPGSQL; --for github indexing
+-----------------------------------------------------------
 
- */
-
-  CREATE OR REPLACE PROCEDURE iniciarConversa(idJogador JOGADOR.id%TYPE, nomeConversa CHAT_GROUP.nome%TYPE)
+CREATE OR REPLACE PROCEDURE iniciarConversa(idJogador JOGADOR.id%TYPE, nomeConversa CHAT_GROUP.nome%TYPE)
     LANGUAGE PLPGSQL
     AS
     $$

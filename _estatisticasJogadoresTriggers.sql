@@ -1,0 +1,1 @@
+DO $$ BEGIN END; $$ LANGUAGE PLPGSQL; --for github indexing

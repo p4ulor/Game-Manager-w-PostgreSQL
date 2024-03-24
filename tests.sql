@@ -1,8 +1,7 @@
-/*
- TESTS SCRIPT
- */
+DO $$ BEGIN END; $$ LANGUAGE PLPGSQL; --for github indexing
+-----------------------------------------------------------
 
-do $testes$
+DO $testes$
 BEGIN
 
 

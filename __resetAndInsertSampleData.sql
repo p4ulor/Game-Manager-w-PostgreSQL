@@ -1,3 +1,4 @@
+DO $$ BEGIN END; $$ LANGUAGE PLPGSQL; --for github indexing
 --Deletes tables (and removes data)
 
 DROP PROCEDURE IF EXISTS criarJogador; --d)

@@ -1,3 +1,5 @@
+DO $$ BEGIN END; $$ LANGUAGE PLPGSQL; --for github indexing
+-----------------------------------------------------------
 /*
     Its a simple query so the rows are all returned at the same time using 'RETURN QUERY' instead of 'RETURN NEXT'.
     A 'SUM' is used in the values received to sum all the points of the same player when the GROUP BY id_jogador is done.

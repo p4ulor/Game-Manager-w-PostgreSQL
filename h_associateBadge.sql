@@ -1,7 +1,6 @@
-/*
-
- */
- CREATE OR REPLACE PROCEDURE associarCrachaTansaction(idJogador JOGADOR.id%TYPE, idJogo JOGO.id%TYPE,
+DO $$ BEGIN END; $$ LANGUAGE PLPGSQL; --for github indexing
+-----------------------------------------------------------
+CREATE OR REPLACE PROCEDURE associarCrachaTansaction(idJogador JOGADOR.id%TYPE, idJogo JOGO.id%TYPE,
                                                      nomeCracha CRACHA.nome%TYPE)
     LANGUAGE PLPGSQL
     AS

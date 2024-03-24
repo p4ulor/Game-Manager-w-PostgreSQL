@@ -1,3 +1,4 @@
+DO $$ BEGIN END; $$ LANGUAGE PLPGSQL; --for github indexing
 --Compras
 
 CREATE OR REPLACE FUNCTION _autoUpdateNumJogadoresComparam()  RETURNS TRIGGER LANGUAGE PLPGSQL AS $$

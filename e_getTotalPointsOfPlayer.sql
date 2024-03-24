@@ -1,3 +1,4 @@
+DO $$ BEGIN END; $$ LANGUAGE PLPGSQL; --for github indexing
 DROP FUNCTION IF EXISTS getTotalPointsOfPlayer;
 
 CREATE OR REPLACE FUNCTION getTotalPointsOfPlayer(id INT) RETURNS INT language plpgsql as $$

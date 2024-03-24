@@ -1,3 +1,5 @@
+DO $$ BEGIN END; $$ LANGUAGE PLPGSQL; --for github indexing
+-----------------------------------------------------------
 /*
     Obtains
     id, estado, email, username, número de diferentes jogos que ja participou, número de partidas feitas e total de pontos,
