@@ -2,6 +2,9 @@ package dalGenericInterfaces;
 
 import java.util.List;
 
+/**
+ * It hasen't been clear yet why this Data Access Layer exists as some sort of convetion
+ */
 public interface IRepository<Tentity, Tkey> {
     void add(Tentity entity) throws Exception;
     List<Tentity> getAll() throws Exception;
