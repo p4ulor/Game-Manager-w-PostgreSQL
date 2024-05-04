@@ -7,11 +7,11 @@
 
 # About locks
 What are the advantages of read-write lock?
-- An RW lock allows concurrent access for read-only operations, whereas write operations require exclusive access. 
+- An R/W lock allows concurrent access for read-only operations, whereas write operations require exclusive access. 
 - This means that multiple threads can read the data in parallel but an exclusive lock is needed for writing or modifying data.
 
 # Functions and procedures
-- createStoredProcedureQuery() is for functions (apperently)
+- createStoredProcedureQuery() is for functions (apparently)
 - createNativeQuery is for procedures (apperently)
 
 ## Repositories and Mappers
@@ -21,6 +21,8 @@ In JPA (Java Persistence API) and Hibernate, the Repository and Mapper interface
 - The Repository interface acts as an abstraction layer between the application and the underlying database. It provides a set of methods to perform CRUD (Create, Read, Update, Delete) operations on the entities within the database. The Repository interface typically defines methods for querying and manipulating data, such as saving entities, retrieving entities by ID, deleting entities, and executing custom queries.
 
 For example, let's say we have an entity class called User. The UserRepository interface would provide methods like save(User user), findById(Long id), delete(User user), and so on. The actual implementation of the repository interface is typically done using JPA annotations or XML mappings to define the mapping between the entities and the database tables.
+
+At the time, I couldn't understand the difference between mappers and repositories, I literally saw no difference. So we're just using the mappers
 
 ### Mapper Interface:
 - The Mapper interface, also known as the Data Mapper or Object-Relational Mapping (ORM) layer, is responsible for mapping between the application domain objects/entities and the database tables. It provides methods to convert the data between the object-oriented representation used in the application and the relational representation used in the database.
